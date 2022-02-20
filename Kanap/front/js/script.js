@@ -7,6 +7,10 @@ fetch ("http://localhost:3000/api/products")
     allProducts(data)
     console.log(data)
 })
+.catch((error) => {
+    console.log("Erreur de la requête API");
+})
+
 
 function allProducts(data) {
 for (product of data) {
