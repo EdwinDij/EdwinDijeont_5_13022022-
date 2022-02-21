@@ -1,4 +1,4 @@
-
+        //requête API
 
 fetch ("http://localhost:3000/api/products")
 .then(response => response.json())
@@ -8,7 +8,7 @@ fetch ("http://localhost:3000/api/products")
     console.log(data)
 })
 .catch((error) => {
-    console.log("Erreur de la requête API");
+    console.log("Erreur");
 })
 
 
@@ -36,7 +36,7 @@ nameProduct.innerText = `${product.name}`
 descriptionProduct.innerText = `${product.description}`
 imgProduct.src = `${product.imageUrl}`
 imgProduct.setAttribute("alt", `${product.altTxt}`)
-link.href = `${product._id}`
+link.href = `product.html?id=${product._id}`
 
 }
 }
