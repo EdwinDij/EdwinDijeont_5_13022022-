@@ -8,6 +8,7 @@ let imgProduct = document.createElement('img');
 let priceProduct = document.getElementById('price');
 let nameProduct = document.getElementById('title');
 let descriptionProduct = document.getElementById('description');
+let colorsProduct = document.getElementById('colors')
 item.appendChild(imgProduct)
 
         //Affichage du produit
@@ -39,15 +40,56 @@ getArticle()
 
         //ajout au panier
 
-let addToCart = document.getElementById('addToCart')
-addToCart.addEventListener('click', addToCart)
+let buttonAddToCart = document.getElementById('addToCart')
+buttonAddToCart.addEventListener('click', addToCart)
 
-function addToCart {
+function addToCart() {
     const colorsChoice = document.getElementById('colors');
     const quantityChoice = document.getElementById('quantity');
 
     if (quantityChoice.value > 0 && quantityChoice.value <=100 && quantityChoice.value != 0 && colorsChoice.value != 0) { 
 
         if (localStorage.getItem('cart')) {
+            
             let productCart = JSON.parse(localStorage.getItem("cart"));
-        }}
+            console.log(productCart);
+
+            let kanapId = idProduct;
+            let colorsProduct = document.querySelector('#colors').value;
+            let quantityKanap = document.querySelector('#quantity').value;
+            let result = productCart.find(
+                (el) => el.kanapId === idProduct && el.colorsProduct === colorsProduct);
+             
+            if (result) {
+                console.log ('result kanap =' + result.quantityKanap);
+                let newQuantity = parseInt(quantityKanap) + parseInt(result.quantityKanap)
+                result.quantityKanap = newQuantity;
+                localStorage.setItem("cart", JSON.stringify(productCart));
+            }else{
+                let productCart = JSON.parse(localStorage.getItem('cart'));
+
+                let idKanap = idProduct;
+                let nameProduct = document.querySelector('#title').textContent;
+                let colorsProduct = document.querySelector('#colors').value;
+                let quantityKanap = document.querySelector('#quantity').value;
+                let priceProduct = document.querySelector('#price').textContent;
+                console.log (idKanap, nameProduct, colorsProduct, quantityKanap, priceProduct);
+
+                let productCartObj = {
+                    idKanap : idProduct,
+                    nameProduct : nameProduct,
+                    colorsProduct : colorsProduct,
+                    quantityKanap : quantityKanap,
+                    priceProduct : priceProduct
+                
+            };
+            productCart.push(productCartObj);
+
+            let objCart = JSON.stringify(productCart);
+            localStorage.setItem('cart', objCart);
+
+            alert ('Kanap ajouté au pannier !'  )
+
+            }
+        }
+}   }
