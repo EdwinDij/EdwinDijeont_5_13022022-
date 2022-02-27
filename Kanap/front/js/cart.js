@@ -22,59 +22,58 @@ function getCart() {
             article.className = "cart__item";
             article.setAttribute("data-id", productLocalStorage[i].idKanap);
 
-            // Insertion de l'élément "div" pour l'image produit
+            // Création de l'élément "div" pour l'image produit
             let divImg = document.createElement("div");
             article.appendChild(divImg);
             divImg.className = "cart__item__img";
 
-            // Insertion de l'image
+            // Création de l'image
             let productImg = document.createElement("img");
             divImg.appendChild(productImg);
             productImg.src = productLocalStorage[i].imgKanap;
-            // productImg.alt = productLocalStorage.altImgProduit;
 
-            // Insertion de l'élément "div" pour la description produit
+            // Création de l'élément "div" pour la description produit
             let productContent = document.createElement("div");
             article.appendChild(productContent);
             productContent.className = "cart__item__content";
 
-            // Insertion de l'élément "div"
+            // Création de l'élément "div"
             let productContentTitlePrice = document.createElement("div");
             productContent.appendChild(productContentTitlePrice);
             productContentTitlePrice.className = "cart__item__content__titlePrice";
 
-            // Insertion du titre h2
+            // Création du titre h2
             let productTitle = document.createElement("h2");
             productContentTitlePrice.appendChild(productTitle);
-            productTitle.innerHTML = productLocalStorage[i].nameKanap;
+            productTitle.innerText = productLocalStorage[i].nameKanap;
 
-            // Insertion de la couleur
+            // Création de la couleur
             let productColor = document.createElement("p");
             productTitle.appendChild(productColor);
-            productColor.innerHTML = productLocalStorage[i].colorKanap;
+            productColor.innerText = productLocalStorage[i].colorKanap;
             productColor.style.fontSize = "20px";
 
-            // Insertion du prix
+            // Création du prix
             let productPrice = document.createElement("p");
             productContentTitlePrice.appendChild(productPrice);
-            productPrice.innerHTML = productLocalStorage[i].priceKanap + " €";
+            productPrice.innerText = productLocalStorage[i].priceKanap + " €";
 
-            // Insertion de l'élément "div"
+            // Création de l'élément "div"
             let productContentSettings = document.createElement("div");
             productContent.appendChild(productContentSettings);
             productContentSettings.className = "cart__item__content__settings";
 
-            // Insertion de l'élément "div"
+            // Création de l'élément "div"
             let productContentSettingsQuantity = document.createElement("div");
             productContentSettings.appendChild(productContentSettingsQuantity);
             productContentSettingsQuantity.className = "cart__item__content__settings__quantity";
 
-            // Insertion de "Qté : "
+            // Création de "Qté : "
             let productQty = document.createElement("p");
             productContentSettingsQuantity.appendChild(productQty);
-            productQty.innerHTML = "Qté : ";
+            productQty.innerText = "Qté : ";
 
-            // Insertion de la quantité
+            // Création de la quantité
             let productQuantity = document.createElement("input");
             productContentSettingsQuantity.appendChild(productQuantity);
             productQuantity.value = productLocalStorage[i].qtyKanap;
@@ -84,7 +83,7 @@ function getCart() {
             productQuantity.setAttribute("max", "100");
             productQuantity.setAttribute("name", "itemQuantity");
 
-            // Insertion de l'élément "div"
+            // Création de l'élément "div"
             let productContentSettingsDelete = document.createElement("div");
             productContentSettings.appendChild(productContentSettingsDelete);
             productContentSettingsDelete.className = "cart__item__content__settings__delete";
@@ -93,7 +92,7 @@ function getCart() {
             let productSupprimer = document.createElement("p");
             productContentSettingsDelete.appendChild(productSupprimer);
             productSupprimer.className = "deleteItem";
-            productSupprimer.innerHTML = "Supprimer";
+            productSupprimer.innerText = "Supprimer";
             productSupprimer.addEventListener("click", (e) => {
                 e.preventDefault;
 
@@ -104,13 +103,12 @@ function getCart() {
                 // filtrer l'élément cliqué par le bouton supprimer
                 productLocalStorage = productLocalStorage.filter(elt => elt.idKanap !== deleteId || elt.colorKanap !== deleteColor);
 
-                // envoyer les nouvelles données dans le localStorage
+                // envoie des données dans le localStorage
                 localStorage.setItem('cart', JSON.stringify(productLocalStorage));
 
-                // avertir de la suppression et recharger la page
                 alert('Votre article a bien été supprimé.');
 
-                //Si pas de produits dans le local storage on affiche que le panier est vide
+                //Si le local storage est vide on affiche que le panier est vide
                 if (productLocalStorage.length === 0) {
                     localStorage.clear();
                 }
@@ -135,7 +133,7 @@ function getTotals(){
     }
     
     let productTotalQuantity = document.getElementById('totalQuantity');
-    productTotalQuantity.innerHTML = totalQtt;
+    productTotalQuantity.innerText = totalQtt;
 
     // Récupération du prix total
     totalPrice = 0;
@@ -144,7 +142,7 @@ function getTotals(){
     }
 
     let productTotalPrice = document.getElementById('totalPrice');
-    productTotalPrice.innerHTML = totalPrice;
+    productTotalPrice.innerText = totalPrice;
 }
 getTotals();
 
@@ -175,7 +173,7 @@ function modifyQtt() {
 modifyQtt();
 
 
-//Instauration formulaire avec regex
+// Formulaire avec regex
 function getForm() {
     // Ajout des Regex
     let form = document.querySelector(".cart__order__form");
@@ -185,27 +183,27 @@ function getForm() {
     let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
     let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification
     form.firstName.addEventListener('change', function() {
         validFirstName(this);
     });
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification
     form.lastName.addEventListener('change', function() {
         validLastName(this);
     });
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification
     form.address.addEventListener('change', function() {
         validAddress(this);
     });
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification
     form.city.addEventListener('change', function() {
         validCity(this);
     });
 
-    // Ecoute de la modification du prénom
+    // Ecoute de la modification 
     form.email.addEventListener('change', function() {
         validEmail(this);
     });
@@ -215,9 +213,9 @@ function getForm() {
         let firstNameErrorMsg = inputFirstName.nextElementSibling;
 
         if (charRegExp.test(inputFirstName.value)) {
-            firstNameErrorMsg.innerHTML = '';
+            firstNameErrorMsg.innerText = '';
         } else {
-            firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+            firstNameErrorMsg.innerText = 'Veuillez renseigner ce champ.';
         }
     };
 
@@ -226,9 +224,9 @@ function getForm() {
         let lastNameErrorMsg = inputLastName.nextElementSibling;
 
         if (charRegExp.test(inputLastName.value)) {
-            lastNameErrorMsg.innerHTML = '';
+            lastNameErrorMsg.innerText = '';
         } else {
-            lastNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+            lastNameErrorMsg.innerText = 'Veuillez renseigner ce champ.';
         }
     };
 
@@ -237,9 +235,9 @@ function getForm() {
         let addressErrorMsg = inputAddress.nextElementSibling;
 
         if (addressRegExp.test(inputAddress.value)) {
-            addressErrorMsg.innerHTML = '';
+            addressErrorMsg.innerText = '';
         } else {
-            addressErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+            addressErrorMsg.innerText = 'Veuillez renseigner une adresse valide.';
         }
     };
 
@@ -248,9 +246,9 @@ function getForm() {
         let cityErrorMsg = inputCity.nextElementSibling;
 
         if (charRegExp.test(inputCity.value)) {
-            cityErrorMsg.innerHTML = '';
+            cityErrorMsg.innerText = '';
         } else {
-            cityErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+            cityErrorMsg.innerText = 'Veuillez renseigner une ville.';
         }
     };
 
@@ -259,9 +257,9 @@ function getForm() {
         let emailErrorMsg = inputEmail.nextElementSibling;
 
         if (emailRegExp.test(inputEmail.value)) {
-            emailErrorMsg.innerHTML = '';
+            emailErrorMsg.innerText = '';
         } else {
-            emailErrorMsg.innerHTML = 'Veuillez renseigner votre email.';
+            emailErrorMsg.innerText = 'Veuillez renseigner un mail valide. ex:(exemple@[domaine].fr,com, etc).';
         }
     };
     }
@@ -272,7 +270,7 @@ function postForm() {
     order.addEventListener('click', (event) => {
     event.preventDefault();
   
-    // je récupère les données du formulaire dans un objet
+
     const contact = {
       firstName : document.getElementById('firstName').value,
       lastName : document.getElementById('lastName').value,
@@ -281,7 +279,6 @@ function postForm() {
       email : document.getElementById('email').value
     }
 
-    //Construction d'un array d'id depuis le local storage
     let products = [];
     for (let i = 0; i< productLocalStorage.length;i++) {
         products.push(productLocalStorage[i].idKanap);
@@ -309,6 +306,6 @@ function postForm() {
         document.location.href = 'confirmation.html?id='+ data.orderId;
       });
   
-  }); // fin eventListener postForm
-  } // fin envoi du formulaire postForm
+  }); 
+}
   postForm();
