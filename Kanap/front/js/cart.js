@@ -267,11 +267,17 @@ function getForm() {
 getForm();
 
 function postForm() {
+ 
     const order = document.getElementById('order');
     order.addEventListener('click', (event) => {
     event.preventDefault();
-  
-    // récupèration des données du formulaire dans un objet
+    
+    
+    if (order) {
+        getForm() === ''
+        alert('veuillez remplir le formulaire, SVP! ')
+ 
+    } else {
     const contact = {
       firstName : document.getElementById('firstName').value,
       lastName : document.getElementById('lastName').value,
@@ -279,7 +285,7 @@ function postForm() {
       city : document.getElementById('city').value,
       email : document.getElementById('email').value
     }
-
+    }
     //Construction d'un array d'id depuis le local storage
     let products = [];
     for (let i = 0; i< productLocalStorage.length;i++) {
@@ -307,7 +313,7 @@ function postForm() {
         localStorage.setItem('orderId', data.orderId);
         document.location.href = 'confirmation.html?id='+ data.orderId;
       });
-  
-  }); 
+    }); 
 }
+
   postForm();
