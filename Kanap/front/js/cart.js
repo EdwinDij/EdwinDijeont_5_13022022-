@@ -22,58 +22,59 @@ function getCart() {
             article.className = "cart__item";
             article.setAttribute("data-id", productLocalStorage[i].idKanap);
 
-            // Création de l'élément "div" pour l'image produit
+            // Insertion de l'élément "div" pour l'image produit
             let divImg = document.createElement("div");
             article.appendChild(divImg);
             divImg.className = "cart__item__img";
 
-            // Création de l'image
+            // Insertion de l'image
             let productImg = document.createElement("img");
             divImg.appendChild(productImg);
             productImg.src = productLocalStorage[i].imgKanap;
+            // productImg.alt = productLocalStorage.altImgProduit;
 
-            // Création de l'élément "div" pour la description produit
+            // Insertion de l'élément "div" pour la description produit
             let productContent = document.createElement("div");
             article.appendChild(productContent);
             productContent.className = "cart__item__content";
 
-            // Création de l'élément "div"
+            // Insertion de l'élément "div"
             let productContentTitlePrice = document.createElement("div");
             productContent.appendChild(productContentTitlePrice);
             productContentTitlePrice.className = "cart__item__content__titlePrice";
 
-            // Création du titre h2
+            // Insertion du titre h2
             let productTitle = document.createElement("h2");
             productContentTitlePrice.appendChild(productTitle);
             productTitle.innerText = productLocalStorage[i].nameKanap;
 
-            // Création de la couleur
+            // Insertion de la couleur
             let productColor = document.createElement("p");
             productTitle.appendChild(productColor);
             productColor.innerText = productLocalStorage[i].colorKanap;
             productColor.style.fontSize = "20px";
 
-            // Création du prix
+            // Insertion du prix
             let productPrice = document.createElement("p");
             productContentTitlePrice.appendChild(productPrice);
             productPrice.innerText = productLocalStorage[i].priceKanap + " €";
 
-            // Création de l'élément "div"
+            // Insertion de l'élément "div"
             let productContentSettings = document.createElement("div");
             productContent.appendChild(productContentSettings);
             productContentSettings.className = "cart__item__content__settings";
 
-            // Création de l'élément "div"
+            // Insertion de l'élément "div"
             let productContentSettingsQuantity = document.createElement("div");
             productContentSettings.appendChild(productContentSettingsQuantity);
             productContentSettingsQuantity.className = "cart__item__content__settings__quantity";
 
-            // Création de "Qté : "
+            // Insertion de "Qté : "
             let productQty = document.createElement("p");
             productContentSettingsQuantity.appendChild(productQty);
             productQty.innerText = "Qté : ";
 
-            // Création de la quantité
+            // Insertion de la quantité
             let productQuantity = document.createElement("input");
             productContentSettingsQuantity.appendChild(productQuantity);
             productQuantity.value = productLocalStorage[i].qtyKanap;
@@ -83,7 +84,7 @@ function getCart() {
             productQuantity.setAttribute("max", "100");
             productQuantity.setAttribute("name", "itemQuantity");
 
-            // Création de l'élément "div"
+            // Insertion de l'élément "div"
             let productContentSettingsDelete = document.createElement("div");
             productContentSettings.appendChild(productContentSettingsDelete);
             productContentSettingsDelete.className = "cart__item__content__settings__delete";
@@ -103,12 +104,13 @@ function getCart() {
                 // filtrer l'élément cliqué par le bouton supprimer
                 productLocalStorage = productLocalStorage.filter(elt => elt.idKanap !== deleteId || elt.colorKanap !== deleteColor);
 
-                // envoie des données dans le localStorage
+                // envoyer les nouvelles données dans le localStorage
                 localStorage.setItem('cart', JSON.stringify(productLocalStorage));
 
+                // avertir de la suppression et recharger la page
                 alert('Votre article a bien été supprimé.');
 
-                //Si le local storage est vide on affiche que le panier est vide
+                //Si pas de produits dans le local storage on affiche que le panier est vide
                 if (productLocalStorage.length === 0) {
                     localStorage.clear();
                 }
@@ -173,7 +175,7 @@ function modifyQtt() {
 modifyQtt();
 
 
-// Formulaire avec regex
+//Instauration formulaire avec regex
 function getForm() {
     // Ajout des Regex
     let form = document.querySelector(".cart__order__form");
@@ -183,27 +185,27 @@ function getForm() {
     let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
     let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
 
-    // Ecoute de la modification
+    // Ecoute de la modification du prénom
     form.firstName.addEventListener('change', function() {
         validFirstName(this);
     });
 
-    // Ecoute de la modification
+    // Ecoute de la modification du prénom
     form.lastName.addEventListener('change', function() {
         validLastName(this);
     });
 
-    // Ecoute de la modification
+    // Ecoute de la modification du prénom
     form.address.addEventListener('change', function() {
         validAddress(this);
     });
 
-    // Ecoute de la modification
+    // Ecoute de la modification du prénom
     form.city.addEventListener('change', function() {
         validCity(this);
     });
 
-    // Ecoute de la modification 
+    // Ecoute de la modification du prénom
     form.email.addEventListener('change', function() {
         validEmail(this);
     });
@@ -270,7 +272,7 @@ function postForm() {
     order.addEventListener('click', (event) => {
     event.preventDefault();
   
-
+    // je récupère les données du formulaire dans un objet
     const contact = {
       firstName : document.getElementById('firstName').value,
       lastName : document.getElementById('lastName').value,
@@ -279,6 +281,7 @@ function postForm() {
       email : document.getElementById('email').value
     }
 
+    //Construction d'un array d'id depuis le local storage
     let products = [];
     for (let i = 0; i< productLocalStorage.length;i++) {
         products.push(productLocalStorage[i].idKanap);
