@@ -77,7 +77,7 @@ function getCart() {
             // Insertion de la quantité
             let productQuantity = document.createElement("input");
             productContentSettingsQuantity.appendChild(productQuantity);
-            productQuantity.value = productLocalStorage[i].qtyKanap;
+            productQuantity.value = productLocalStorage[i].quantityKanap;
             productQuantity.className = "itemQuantity";
             productQuantity.setAttribute("type", "number");
             productQuantity.setAttribute("min", "1");
@@ -104,7 +104,7 @@ function getCart() {
                 // filtrer l'élément cliqué par le bouton supprimer
                 productLocalStorage = productLocalStorage.filter(elt => elt.idKanap !== deleteId || elt.colorKanap !== deleteColor);
 
-                // envoyer les nouvelles données dans le localStorage
+                // nouvelles données dans le localStorage
                 localStorage.setItem('cart', JSON.stringify(productLocalStorage));
 
                 // avertir de la suppression et recharger la page
@@ -126,21 +126,21 @@ getCart()
 function getTotals(){
 
     // Récupération du total des quantités
-    var elemsQtt = document.getElementsByClassName('itemQuantity');
-    var myLength = elemsQtt.length,
-    totalQtt = 0;
+    var elemsQuantity = document.getElementsByClassName('itemQuantity');
+    var myLength = elemsQuantity.length,
+    totalQuantity = 0;
 
     for (var i = 0; i < myLength; ++i) {
-        totalQtt += elemsQtt[i].valueAsNumber;
+        totalQuantity += elemsQuantity[i].valueAsNumber;
     }
     
     let productTotalQuantity = document.getElementById('totalQuantity');
-    productTotalQuantity.innerText = totalQtt;
+    productTotalQuantity.innerText = totalQuantity;
 
     // Récupération du prix total
     totalPrice = 0;
     for (var i = 0; i < myLength; ++i) {
-        totalPrice += (elemsQtt[i].valueAsNumber * productLocalStorage[i].priceKanap);
+        totalPrice += (elemsQuantity[i].valueAsNumber * productLocalStorage[i].priceKanap);
     }
 
     let productTotalPrice = document.getElementById('totalPrice');
@@ -149,21 +149,21 @@ function getTotals(){
 getTotals();
 
 
-function modifyQtt() {
-    let qttModif = document.querySelectorAll(".itemQuantity");
+function modifyQuantity() {
+    let quantityModif = document.querySelectorAll(".itemQuantity");
 
-    for (let k= 0; k < qttModif.length; k++){
-        qttModif[k].addEventListener("change" , (event) => {
+    for (let j= 0; j < quantityModif.length; j++){
+        quantityModif[j].addEventListener("change" , (event) => {
             event.preventDefault();
 
             //Selection de l'element à modifier en fonction de son id ET sa couleur
-            let quantityModif = productLocalStorage[k].qtyKanap;
-            let qttModifValue = qttModif[k].valueAsNumber;
+            let quantityModif = productLocalStorage[k].quantityKanap;
+            let quantityModifValue = quantityModif[k].valueAsNumber;
             
-            const resultFind = productLocalStorage.find((el) => el.qttModifValue !== quantityModif);
+            const resultFind = productLocalStorage.find((el) => el.quantityModifValue !== quantityModif);
 
-            resultFind.qtyKanap = qttModifValue;
-            productLocalStorage[k].qtyKanap = resultFind.qtyKanap;
+            resultFind.quantityKanap = quantityModifValue;
+            productLocalStorage[k].quantityKanap = resultFind.quantityKanap;
 
             localStorage.setItem("cart", JSON.stringify(productLocalStorage));
         
@@ -172,17 +172,16 @@ function modifyQtt() {
         })
     }
 }
-modifyQtt();
+modifyQuantity();
 
-
-//Instauration formulaire avec regex
+// Controle de surface
 function getForm() {
     // Ajout des Regex
     let form = document.querySelector(".cart__order__form");
 
     //Création des expressions régulières
     let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
-    let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
+    let commonRegExp = new RegExp("^[a-zA-Z -]");
     let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
 
     // Ecoute de la modification du prénom
@@ -214,10 +213,10 @@ function getForm() {
     const validFirstName = function(inputFirstName) {
         let firstNameErrorMsg = inputFirstName.nextElementSibling;
 
-        if (charRegExp.test(inputFirstName.value)) {
+        if (commonRegExp.test(inputFirstName.value)) {
             firstNameErrorMsg.innerText = '';
         } else {
-            firstNameErrorMsg.innerText = 'Veuillez renseigner ce champ.';
+            firstNameErrorMsg.innerText = 'Veuillez renseigner un prénom.';
         }
     };
 
@@ -225,10 +224,10 @@ function getForm() {
     const validLastName = function(inputLastName) {
         let lastNameErrorMsg = inputLastName.nextElementSibling;
 
-        if (charRegExp.test(inputLastName.value)) {
+        if (commonRegExp.test(inputLastName.value)) {
             lastNameErrorMsg.innerText = '';
         } else {
-            lastNameErrorMsg.innerText = 'Veuillez renseigner ce champ.';
+            lastNameErrorMsg.innerText = 'Veuillez renseigner un nom.';
         }
     };
 
@@ -247,7 +246,7 @@ function getForm() {
     const validCity = function(inputCity) {
         let cityErrorMsg = inputCity.nextElementSibling;
 
-        if (charRegExp.test(inputCity.value)) {
+        if (commonRegExp.test(inputCity.value)) {
             cityErrorMsg.innerText = '';
         } else {
             cityErrorMsg.innerText = 'Veuillez renseigner une ville.';
@@ -272,7 +271,7 @@ function postForm() {
     order.addEventListener('click', (event) => {
     event.preventDefault();
   
-    // je récupère les données du formulaire dans un objet
+    // récupèration des données du formulaire dans un objet
     const contact = {
       firstName : document.getElementById('firstName').value,
       lastName : document.getElementById('lastName').value,

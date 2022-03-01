@@ -38,7 +38,7 @@ async function getArticle() {
 
 getArticle()
 
-// Ajouté un article au panier
+// Ajout au panier
 let add = document.getElementById('addToCart');
 add.addEventListener('click', addToCart);
 
