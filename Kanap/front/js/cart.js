@@ -108,13 +108,13 @@ function getCart() {
                 localStorage.setItem('cart', JSON.stringify(productLocalStorage));
 
                 // avertir de la suppression et recharger la page
-                alert('Votre article a bien été supprimé.');
+                alert('Votre Kanap a bien été supprimé.');
 
                 //Si pas de produits dans le local storage on affiche que le panier est vide
                 if (productLocalStorage.length === 0) {
                     localStorage.clear();
                 }
-                //Refresh rapide de la page
+                //Refresh de la page
                 location.reload();
 
             });
